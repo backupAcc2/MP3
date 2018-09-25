@@ -87,16 +87,21 @@ void Insertion_Sort(ListPtr list_ptr)
 {
   data_t* elem;
   list_node_t* current = list_iter_front(list_ptr);
-  ListPtr sorted_list;
+  int node_count = 0; // find the current_list_size after while loop
+  // create the new sorted list
+  ListPtr sorted_list = list_construct(list_ptr->comp_proc);
+
   while (current != NULL)
   {
     elem = list_remove(list_ptr, current);
     list_insert_sorted(sorted_list, elem);
-    current = list_iter_next(current);
+    current = list_iter_front(list_ptr);
+    node_count++;
   }
 
   list_ptr->head = list_iter_front(sorted_list);
   list_ptr->tail = list_iter_back(sorted_list);
+  list_ptr->current_list_size = node_count;
 }
 
 /* Purpose: Sorts the list using the recursive selection sort algorithm

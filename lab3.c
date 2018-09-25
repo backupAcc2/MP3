@@ -30,10 +30,11 @@ int main(int argc, char * argv[])
         printf("Usage: ./lab2\n");
         exit(1);
     }
-    printf("Welcome to lab2. Possible commands:\n");
+    printf("Welcome to lab3. Possible commands:\n");
     printf("CREATE x; ADDSU; DELSU x\nLISTCH x; CLEARCH x; ");
     printf("CHANGECH old new; ASSIGNSU x\nPRINTASSIGNED; PRINTWAITING\n");
     printf("STATS; QUIT\n");
+    printf("SORT x; ADDTAIL x\n\n");
 
     /* this list should be sorted and the size of the list is limited */
     assigned_list = NULL;
@@ -56,6 +57,11 @@ int main(int argc, char * argv[])
             }
         } else if (num_items == 1 && strcmp(command, "ADDSU") == 0) {
             sas_add(assigned_list, sorted_size, waiting_list);
+   // ADDED FOR LAB 3
+        } else if (num_items == 2 && strcmp(command, "SORT") == 0 ){
+            list_sort(waiting_list, input_1);
+   // END NEW CODE HERE
+
         } else if (num_items == 2 && strcmp(command, "LISTCH") == 0) {
             if (sas_invalid_ch(input_1)) {
                 printf("Invalid channel number %d for LISTCH\n", input_1);
