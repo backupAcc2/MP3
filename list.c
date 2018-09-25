@@ -2,14 +2,13 @@
  * Heath Gerrald
  * hgerral
  * ECE 2230 Fall 2018
- * MP2
+ * MP3
  *
- * Propose: A template for list.c. Uses two-way linked lists to run commands
- * needed for sas_support.c
+ * Propose: This is an updated version of the MP2 list.c with new sorting
+ * algorithms using recursion.
  *
- * Assumptions: I will need to finish these functions before moving on to
- * sas_support.c. It is important that I know when/if to allocate memory and
- * if so when to free it.
+ * Assumptions: I'm going to have to show proficiency in recursion to
+ * write the correct code for these algorithms
  *
  * Bugs: None to my knowledge
  */
@@ -55,6 +54,96 @@ list_t *list_construct(int (*fcomp)(const data_t *, const data_t *))
     // the last line of this function must call validate
     list_debug_validate(L);
     return L;
+}
+
+/* Purpose: sorts the list using one of the following algorithms:
+ *   1 - Insertion sort
+ *   2 - Recursive Selection sort
+ *   3 - Iterative Selection Sort
+ *   4 - Merge Sort
+ *
+ * The parameter sort_type will reflect which algorithm to call
+*/
+void list_sort(ListPtr list_ptr, int sort_type)
+{
+ // Insertion sort
+   if (sort_type == 1) {  Insertion_Sort(list_ptr); }
+
+ // Recursive Selection Sort
+   else if (sort_type == 2)
+   {
+     Recursive_Selection_Sort(list_ptr, list_iter_front(list_ptr), list_iter_back(list_ptr));
+   }
+
+}
+
+/* Purpose: sorts the list using the Insertion sort algorithm
+ *
+ * Will create a new list and adjust the head & tail points of the list_ptr
+ * input to point to this new sorted list.
+ */
+
+void Insertion_Sort(ListPtr list_ptr)
+{
+  data_t* elem;
+  list_node_t* current = list_iter_front(list_ptr);
+  ListPtr sorted_list;
+  while (current != NULL)
+  {
+    elem = list_remove(list_ptr, current);
+    list_insert_sorted(sorted_list, elem);
+    current = list_iter_next(current);
+  }
+
+  list_ptr->head = list_iter_front(sorted_list);
+  list_ptr->tail = list_iter_back(sorted_list);
+}
+
+/* Purpose: Sorts the list using the recursive selection sort algorithm
+ *
+ * Finds the max value by calling the FindMax() function and swaps it with
+ * the last value in the list
+ */
+void Recursive_Selection_Sort(ListPtr list_ptr, list_node_t* front, list_node_t* back)
+{
+  data_t* temp;
+  list_node_t* MaxPosition;
+  list_node_t* front_bound = list_iter_front(list_ptr);
+  list_node_t* back_bound = list_iter_back(list_ptr);
+
+  if (list_size(list_ptr) > 1)
+  {
+ // Find max su_id and place at back of list
+    MaxPosition = FindMax(list_ptr, front_bound, back_bound);
+    temp = back_bound->data_ptr;
+    back_bound->data_ptr = MaxPosition->data_ptr;
+    MaxPosition->data_ptr = temp;
+
+    Recursive_Selection_Sort(list_ptr, front_bound, back_bound->prev);
+  }
+}
+
+/* Purpose: finds the largest integer in the list from node a to b
+ *
+ * Takes a list and pointers to its head and tail (or range to sort)
+ * as parameters
+ *
+ * Returns the data_t* containing max su_id
+ */
+list_node_t* FindMax(ListPtr list_ptr, list_node_t* a, list_node_t* b)
+{
+   list_node_t* i = a;  // visits all nodes from a to b
+   list_node_t* j = a;  // j saves the position of the max value
+
+   do{
+     i = list_iter_next(i);
+     if ((i->data_ptr) > j->data_ptr)
+     {
+      j = i;
+     }
+   } while(i != b);
+
+   return j;
 }
 
 /* Purpose: return the count of number of elements in the list.
