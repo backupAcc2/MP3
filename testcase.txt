@@ -35,4 +35,40 @@ standard
 PRINTWAITING
 SORT 1
 PRINTWAITING
-QUIT
+
+
+TEST 2 - Try sorting a list using the selection sort_type
+CREATE 4
+ADDSU
+48
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+35
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+12
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+PRINTWAITING
+SORT 2
+PRINTWAITING

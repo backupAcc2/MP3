@@ -102,6 +102,7 @@ void Insertion_Sort(ListPtr list_ptr)
   list_ptr->head = list_iter_front(sorted_list);
   list_ptr->tail = list_iter_back(sorted_list);
   list_ptr->current_list_size = node_count;
+  free(sorted_list);
 }
 
 /* Purpose: Sorts the list using the recursive selection sort algorithm
