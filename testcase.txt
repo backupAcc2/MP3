@@ -1,7 +1,7 @@
 TEST CASE FOR MP3
 
 TEST 1 - Add in 3 users and test insertion sort
-CREATE 4
+CREATE 5
 ADDSU
 48
 100.104.45.4
@@ -14,6 +14,26 @@ standard
 24
 ADDSU
 35
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+102
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+9
 100.104.45.4
 3533
 T
@@ -38,7 +58,7 @@ PRINTWAITING
 
 
 TEST 2 - Try sorting a list using the selection sort_type
-CREATE 4
+CREATE 5
 ADDSU
 48
 100.104.45.4
@@ -60,6 +80,26 @@ standard
 2.2
 24
 ADDSU
+102
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+9
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
 12
 100.104.45.4
 3533
@@ -72,3 +112,4 @@ standard
 PRINTWAITING
 SORT 2
 PRINTWAITING
+QUIT

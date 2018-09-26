@@ -75,6 +75,11 @@ void list_sort(ListPtr list_ptr, int sort_type)
      Recursive_Selection_Sort(list_ptr, list_iter_front(list_ptr), list_iter_back(list_ptr));
    }
 
+   else if (sort_type == 3)
+   {
+     Iterative_Selection_Sort(list_ptr);
+   }
+
 }
 
 /* Purpose: sorts the list using the Insertion sort algorithm
@@ -114,19 +119,18 @@ void Recursive_Selection_Sort(ListPtr list_ptr, list_node_t* front, list_node_t*
 {
   data_t* temp;
   list_node_t* MaxPosition;
-  list_node_t* front_bound = list_iter_front(list_ptr);
-  list_node_t* back_bound = list_iter_back(list_ptr);
 
-  if (list_size(list_ptr) > 1)
+  if (front != back)
   {
  // Find max su_id and place at back of list
-    MaxPosition = FindMax(list_ptr, front_bound, back_bound);
-    temp = back_bound->data_ptr;
-    back_bound->data_ptr = MaxPosition->data_ptr;
+    MaxPosition = FindMax(list_ptr, front, back);
+    temp = back->data_ptr;
+    back->data_ptr = MaxPosition->data_ptr;
     MaxPosition->data_ptr = temp;
 
-    Recursive_Selection_Sort(list_ptr, front_bound, back_bound->prev);
+    Recursive_Selection_Sort(list_ptr, front, back->prev);
   }
+
 }
 
 /* Purpose: finds the largest integer in the list from node a to b
@@ -143,13 +147,22 @@ list_node_t* FindMax(ListPtr list_ptr, list_node_t* a, list_node_t* b)
 
    do{
      i = list_iter_next(i);
-     if ((i->data_ptr) > j->data_ptr)
+     if ((i->data_ptr->su_id) > j->data_ptr->su_id)
      {
       j = i;
      }
    } while(i != b);
 
    return j;
+}
+
+/* Purpose: Uses the selection sort algorithm implemented on pg 171 in
+ * the textbook.
+ *
+ */
+void Iterative_Selection_Sort(ListPtr list_ptr)
+{
+
 }
 
 /* Purpose: return the count of number of elements in the list.

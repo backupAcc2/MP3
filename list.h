@@ -52,6 +52,7 @@ void list_sort(ListPtr list_ptr, int sort_type);
 void Insertion_Sort(ListPtr);
 void Recursive_Selection_Sort(ListPtr, list_node_t*, list_node_t*);
 list_node_t* FindMax(ListPtr, list_node_t*, list_node_t*);
+void Iterative_Selection_Sort(ListPtr);
 
 /* commands for vim. ts: tabstop, sts: soft tabstop sw: shiftwidth */
 /* vi:set ts=8 sts=4 sw=4 et: */
