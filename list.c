@@ -77,7 +77,7 @@ void list_sort(ListPtr list_ptr, int sort_type)
 
    else if (sort_type == 3)
    {
-     Iterative_Selection_Sort(list_ptr);
+     Iterative_Selection_Sort(list_ptr, list_iter_front(list_ptr), list_iter_back(list_ptr));
    }
 
 }
@@ -159,9 +159,32 @@ list_node_t* FindMax(ListPtr list_ptr, list_node_t* a, list_node_t* b)
 /* Purpose: Uses the selection sort algorithm implemented on pg 171 in
  * the textbook.
  *
+ * Had to make changes to sort the list using a linked list instead of array
+ * and to sort in increasing order, not decreasing
+ *
  */
-void Iterative_Selection_Sort(ListPtr list_ptr)
+void Iterative_Selection_Sort(ListPtr list_ptr, list_node_t* front, list_node_t* back)
 {
+  data_t* temp;
+  list_node_t *i, *MaxPosition;
+
+  while (front != back)
+  {
+      i = back;
+      MaxPosition = back;
+
+      do {
+        i = i->prev;
+        if(i->data_ptr->su_id > MaxPosition->data_ptr->su_id)
+            MaxPosition = i;
+      } while(i != front);
+
+      temp = back->data_ptr;
+      back->data_ptr = MaxPosition->data_ptr;
+      MaxPosition->data_ptr = temp;
+
+      back = back->prev;
+  }
 
 }
 
