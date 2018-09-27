@@ -244,6 +244,7 @@ void Merge_Sort(ListPtr list_ptr)
     list_node_t *L_rover = L->head;
     list_node_t *R_rover = R->head;
     ListPtr sorted_list = list_construct(list_ptr->comp_proc);
+
     while(L_rover || R_rover)
     {
       if (L_rover && R_rover)
@@ -251,35 +252,37 @@ void Merge_Sort(ListPtr list_ptr)
         if(L_rover->data_ptr->su_id > R_rover->data_ptr->su_id)
         {
           list_insert_sorted(sorted_list, R_rover->data_ptr);
-          R_rover = R_rover->next;
+          list_remove(R, R_rover);
+          R_rover = R->head;
         }
         else
         {
           list_insert_sorted(sorted_list, L_rover->data_ptr);
-          L_rover = L_rover->next;
+          list_remove(L, L_rover);
+          L_rover = L->head;
         }
       }
 
       else if (R_rover == NULL)
       {
         list_insert_sorted(sorted_list, L_rover->data_ptr);
-        L_rover = L_rover->next;
-        if (R)
-           free(R);
+        list_remove(L, L_rover);
+        L_rover = L->head;
       }
 
       else
       {
         list_insert_sorted(sorted_list, R_rover->data_ptr);
-        R_rover = R_rover->next;
-        if (L)
-          free(L);
+        list_remove(R,R_rover);
+        R_rover = R->head;
       }
     }
 
    list_ptr->head = sorted_list->head;
    list_ptr->tail = sorted_list->tail;
    list_ptr->current_list_size = sorted_list->current_list_size;
+   free(L);
+   free(R);
    free(sorted_list);
 
   }  // end if list_size > 1
