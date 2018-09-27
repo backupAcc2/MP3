@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <time.h>
 
 #include "datatypes.h"
 #include "list.h"
@@ -68,8 +69,21 @@ int sas_compare(const su_info_t *record_a, const su_info_t *record_b)
  */
 void sas_sort(ListPtr list_ptr, int sortType)
 {
-   list_sort(list_ptr, sortType);
+   if (list_ptr)
+   {
+       clock_t start, end;
+       double elapse_time; /* time in milliseconds */
+
+       int initialsize = list_size(list_ptr);
+       start = clock();
+       list_sort(list_ptr, sortType);
+       end = clock();
+       elapse_time = 1000.0 * ((double) (end - start)) / CLOCKS_PER_SEC;
+       assert(list_size(list_ptr) == initialsize);
+       printf("%d\t%f\t%d\n", initialsize, elapse_time, sortType);
+   }
 }
+
 
 
 /* Purpose: Adds the new secondary user to the end of the waiting queue
@@ -136,10 +150,10 @@ ListPtr sas_create(ListPtr list_ptr, const char *type)
     comp_function = sas_compare;
 
     if (list_ptr != NULL) {
-        printf("Replacing existing %s\n", type);
+      //  printf("Replacing existing %s\n", type);
         list_destruct(list_ptr);
     } else {
-        printf("New %s\n", type);
+      //  printf("New %s\n", type);
     }
     return list_construct(comp_function);
 }

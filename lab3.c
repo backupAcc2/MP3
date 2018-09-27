@@ -30,11 +30,11 @@ int main(int argc, char * argv[])
         printf("Usage: ./lab2\n");
         exit(1);
     }
-    printf("Welcome to lab3. Possible commands:\n");
+/*    printf("Welcome to lab3. Possible commands:\n");
     printf("CREATE x; ADDSU; DELSU x\nLISTCH x; CLEARCH x; ");
     printf("CHANGECH old new; ASSIGNSU x\nPRINTASSIGNED; PRINTWAITING\n");
     printf("STATS; QUIT\n");
-    printf("SORT x; ADDTAIL x\n\n");
+    printf("SORT x; ADDTAIL x\n\n"); */
 
     /* this list should be sorted and the size of the list is limited */
     assigned_list = NULL;
@@ -48,10 +48,10 @@ int main(int argc, char * argv[])
         if (num_items == 2 && strcmp(command, "CREATE") == 0) {
             sorted_size = input_1;
             if (sorted_size < 1) {
-                printf("Cannot create list: invalid size %d\n", sorted_size);
+          //      printf("Cannot create list: invalid size %d\n", sorted_size);
             } else {
                 // clean up old list if necessary and create a new empty one
-                printf("Assignment list size limit: %d\n", sorted_size);
+            //    printf("Assignment list size limit: %d\n", sorted_size);
                 assigned_list = sas_create(assigned_list, "assignment list");
                 waiting_list = sas_create(waiting_list, "waiting queue");
             }
@@ -103,7 +103,7 @@ int main(int argc, char * argv[])
               sas_cleanup(assigned_list);
             if(waiting_list)
               sas_cleanup(waiting_list);
-            printf("Goodbye\n");
+      //      printf("Goodbye\n");
             break;
         } else {
             printf("# %s", line);

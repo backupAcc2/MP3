@@ -536,7 +536,7 @@ void list_insert_sorted(list_t *list_ptr, data_t *elem_ptr)
         {
             data_t *temp;
           // get to the end of all the data_t's of equal rank
-            while(second->next && list_ptr->comp_proc(first->data_ptr,second->data_ptr) == 0)
+            while(second->next && list_ptr->comp_proc(first->data_ptr,second->next->data_ptr) == 0)
             {  second = second->next;  }
 
             temp = first->data_ptr;
