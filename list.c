@@ -80,6 +80,14 @@ void list_sort(ListPtr list_ptr, int sort_type)
      Iterative_Selection_Sort(list_ptr, list_iter_front(list_ptr), list_iter_back(list_ptr));
    }
 
+   else if (sort_type == 4)
+   {
+     Merge_Sort(list_ptr);
+   }
+
+   list_ptr->list_sorted_state = SORTED_LIST;
+   list_debug_validate(list_ptr);
+
 }
 
 /* Purpose: sorts the list using the Insertion sort algorithm
@@ -185,6 +193,98 @@ void Iterative_Selection_Sort(ListPtr list_ptr, list_node_t* front, list_node_t*
 
       back = back->prev;
   }
+
+}
+
+
+/* Purpose: Uses the merge sort algorithm on page 237 of the textbook
+ *
+ * Splits the list in half
+ */
+void Merge_Sort(ListPtr list_ptr)
+{
+   int list_size = list_ptr->current_list_size;
+
+   if(list_size > 1)
+   {
+     ListPtr L = list_construct(list_ptr->comp_proc);
+     ListPtr R = list_construct(list_ptr->comp_proc);
+     list_node_t *L_head = list_ptr->head;
+     list_node_t *L_tail = list_ptr->head;
+     list_node_t *R_head = list_ptr->tail;
+     list_node_t *R_tail = list_ptr->tail;
+
+     if (list_size % 2 == 1) { L_tail = L_tail->next; }
+
+     for(int i = 0; i < list_size/2 - 1; i++)
+     {
+      // keep moving down the list until we find the head and tail of the
+      // new lists
+        L_tail = L_tail->next;
+        R_head = R_head->prev;
+     }
+
+    L->current_list_size = list_size / 2 + (list_size % 2);
+    R->current_list_size = list_size / 2;
+
+    L->head = L_head;
+    L->head->prev = NULL;
+    L->tail = L_tail;
+    L->tail->next = NULL;
+
+    R->head = R_head;
+    R->head->prev = NULL;
+    R->tail = R_tail;
+    R->tail->next = NULL;
+
+    Merge_Sort(L);
+    Merge_Sort(R);
+
+  // Merge L and R into a single list
+    list_node_t *L_rover = L->head;
+    list_node_t *R_rover = R->head;
+    ListPtr sorted_list = list_construct(list_ptr->comp_proc);
+    while(L_rover || R_rover)
+    {
+      if (L_rover && R_rover)
+      {
+        if(L_rover->data_ptr->su_id > R_rover->data_ptr->su_id)
+        {
+          list_insert_sorted(sorted_list, R_rover->data_ptr);
+          R_rover = R_rover->next;
+        }
+        else
+        {
+          list_insert_sorted(sorted_list, L_rover->data_ptr);
+          L_rover = L_rover->next;
+        }
+      }
+
+      else if (R_rover == NULL)
+      {
+        list_insert_sorted(sorted_list, L_rover->data_ptr);
+        L_rover = L_rover->next;
+        if (R)
+           free(R);
+      }
+
+      else
+      {
+        list_insert_sorted(sorted_list, R_rover->data_ptr);
+        R_rover = R_rover->next;
+        if (L)
+          free(L);
+      }
+    }
+
+   list_ptr->head = sorted_list->head;
+   list_ptr->tail = sorted_list->tail;
+   list_ptr->current_list_size = sorted_list->current_list_size;
+   free(sorted_list);
+
+  }  // end if list_size > 1
+
+
 
 }
 

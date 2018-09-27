@@ -52,7 +52,27 @@ standard
 4
 2.2
 24
+ADDSU
+52
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
+ADDSU
+52
+100.104.45.4
+3533
+T
+standard
+5.0
+4
+2.2
+24
 PRINTWAITING
-SORT 3
+SORT 4
 PRINTWAITING
 QUIT
