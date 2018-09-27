@@ -56,6 +56,24 @@ list_t *list_construct(int (*fcomp)(const data_t *, const data_t *))
     return L;
 }
 
+/* Purpose: Since we cannot access data_ptr in sas_support.c, this function
+ * Takes the su_id of a data_t and adds in its su_id, setting the other
+ * values in the structure to 0.
+ *
+ */
+void input_su(su_info_t *rec_ptr, int su_id)
+{
+   rec_ptr->su_id = su_id;
+   rec_ptr->ip_address = 0;
+   rec_ptr->access_point = 0;
+   rec_ptr->authenticated = 0;
+   rec_ptr->privacy = 0;
+   rec_ptr->band = 0;
+   rec_ptr->channel = 0;
+   rec_ptr->data_rate = 0;
+   rec_ptr->time_received= 0;
+}
+
 /* Purpose: sorts the list using one of the following algorithms:
  *   1 - Insertion sort
  *   2 - Recursive Selection sort

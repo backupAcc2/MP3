@@ -62,6 +62,26 @@ int sas_compare(const su_info_t *record_a, const su_info_t *record_b)
         return 0;
 }
 
+/* Purpose: Calls list_sort from lab3.c
+ *
+ * Takes in the list to sort and int value designating the sort type
+ */
+void sas_sort(ListPtr list_ptr, int sortType)
+{
+   list_sort(list_ptr, sortType);
+}
+
+
+/* Purpose: Adds the new secondary user to the end of the waiting queue
+ *
+ */
+void sas_add_tail(ListPtr waitlist_ptr, int su_id)
+{
+  su_info_t *rec_ptr = (su_info_t *) calloc(1, sizeof(su_info_t));
+  input_su(rec_ptr, su_id);
+  list_insert(waitlist_ptr, rec_ptr, NULL);
+}
+
 
 /* print the secondary user record list
  *

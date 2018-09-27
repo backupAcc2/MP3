@@ -59,7 +59,10 @@ int main(int argc, char * argv[])
             sas_add(assigned_list, sorted_size, waiting_list);
    // ADDED FOR LAB 3
         } else if (num_items == 2 && strcmp(command, "SORT") == 0 ){
-            list_sort(waiting_list, input_1);
+            sas_sort(waiting_list, input_1);
+
+        } else if(num_items == 2 && strcmp(command, "ADDTAIL") == 0) {
+            sas_add_tail(waiting_list, input_1);
    // END NEW CODE HERE
 
         } else if (num_items == 2 && strcmp(command, "LISTCH") == 0) {
