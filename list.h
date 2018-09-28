@@ -31,6 +31,7 @@ typedef list_t * ListPtr;
 
 // My New Functions for MP3
 void input_su(su_info_t*, int); // Helper function
+void list_quick_insert(ListPtr, su_info_t*); // Helper Function
 void list_sort(ListPtr list_ptr, int sort_type);
 void Insertion_Sort(ListPtr);
 void Recursive_Selection_Sort(ListPtr, list_node_t*, list_node_t*);
